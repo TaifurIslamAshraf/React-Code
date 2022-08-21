@@ -1,70 +1,142 @@
-# Getting Started with Create React App
+# Handling Events
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+<h3>Handling events with React elements is very similar to handling events on DOM elements. There are some syntax differences:</h3>
 
-## Available Scripts
+<ul>
+<li>React events are named using camelCase, rather than lowercase.</li>
 
-In the project directory, you can run:
+<li>With JSX you pass a function as the event handler, rather than a string.</li>
+</ul>
+For example, the HTML:
 
-### `npm start`
+```
+<button onclick="activateLasers()">
+  Activate Lasers
+</button>
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+is slightly different in React:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+<button onClick={activateLasers}>
+  Activate Lasers
+</button>
+```
 
-### `npm test`
+Another difference is that you cannot return false to prevent default behavior in React. You must call preventDefault explicitly. For example, with plain HTML, to prevent the default form behavior of submitting, you can write:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+<form onsubmit="console.log('You clicked submit.'); return false">
+  <button type="submit">Submit</button>
+</form>
+```
 
-### `npm run build`
+In React, this could instead be:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+function Form() {
+function handleSubmit(e) {
+e.preventDefault();
+console.log('You clicked submit.');
+}
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+return (
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+<form onSubmit={handleSubmit}>
+<button type="submit">Submit</button>
+</form>
+);
+}
+```
 
-### `npm run eject`
+Here, e is a synthetic event. React defines these synthetic events according to the W3C spec, so you don’t need to worry about cross-browser compatibility. React events do not work exactly the same as native events. See the SyntheticEvent reference guide to learn more.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+When using React, you generally don’t need to call addEventListener to add listeners to a DOM element after it is created. Instead, just provide a listener when the element is initially rendered.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+When you define a component using an ES6 class, a common pattern is for an event handler to be a method on the class. For example, this Toggle component renders a button that lets the user toggle between “ON” and “OFF” states:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```
+class Toggle extends React.Component {
+constructor(props) {
+super(props);
+this.state = {isToggleOn: true};
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
 
-## Learn More
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+handleClick() {
+this.setState(prevState => ({
+isToggleOn: !prevState.isToggleOn
+}));
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+render() {
+return (
+<button onClick={this.handleClick}>
+{this.state.isToggleOn ? 'ON' : 'OFF'}
+</button>
+);
+}
+}
+```
 
-### Code Splitting
+Try it on CodePen
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+You have to be careful about the meaning of this in JSX callbacks. In JavaScript, class methods are not bound by default. If you forget to bind this.handleClick and pass it to onClick, this will be undefined when the function is actually called.
 
-### Analyzing the Bundle Size
+This is not React-specific behavior; it is a part of how functions work in JavaScript. Generally, if you refer to a method without () after it, such as onClick={this.handleClick}, you should bind that method.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+If calling bind annoys you, there are two ways you can get around this. You can use public class fields syntax to correctly bind callbacks:
 
-### Making a Progressive Web App
+```
+class LoggingButton extends React.Component {
+// This syntax ensures `this` is bound within handleClick.
+handleClick = () => {
+console.log('this is:', this);
+};
+render() {
+return (
+<button onClick={this.handleClick}>
+Click me
+</button>
+);
+}
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+This syntax is enabled by default in Create React App.
 
-### Advanced Configuration
+If you aren’t using class fields syntax, you can use an arrow function in the callback:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```
+class LoggingButton extends React.Component {
+handleClick() {
+console.log('this is:', this);
+}
 
-### Deployment
+render() {
+// This syntax ensures `this` is bound within handleClick
+return (
+<button onClick={() => this.handleClick()}>
+Click me
+</button>
+);
+}
+}
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+The problem with this syntax is that a different callback is created each time the LoggingButton renders. In most cases, this is fine. However, if this callback is passed as a prop to lower components, those components might do an extra re-rendering. We generally recommend binding in the constructor or using the class fields syntax, to avoid this sort of performance problem.
 
-### `npm run build` fails to minify
+Passing Arguments to Event Handlers
+Inside a loop, it is common to want to pass an extra parameter to an event handler. For example, if id is the row ID, either of the following would work:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+```
+
+The above two lines are equivalent, and use arrow functions and Function.prototype.bind respectively.
+
+In both cases, the e argument representing the React event will be passed as a second argument after the ID. With an arrow function, we have to pass it explicitly, but with bind any further arguments are automatically forwarded.
