@@ -1,10 +1,10 @@
 import "./App.css";
-import EventBinding from "./Component/Event__BInding/eventBInding";
+import UseState from "./Component/HOOKS__USeState/useState";
 
 function App() {
   return (
     <div>
-      <EventBinding />
+      <UseState />
     </div>
   );
 }
