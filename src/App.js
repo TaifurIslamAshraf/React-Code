@@ -1,11 +1,11 @@
 import "./App.css";
 
-import Form from "./Component/FORM/Form";
+import Parent from "./Component/Data__passing/Parent";
 
 function App() {
   return (
     <div>
-      <Form />
+      <Parent />
     </div>
   );
 }
