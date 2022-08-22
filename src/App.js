@@ -1,10 +1,11 @@
 import "./App.css";
-import UseState from "./Component/HOOKS__USeState/useState";
+
+import Form from "./Component/FORM/Form";
 
 function App() {
   return (
     <div>
-      <UseState />
+      <Form />
     </div>
   );
 }
