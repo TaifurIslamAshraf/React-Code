@@ -2,27 +2,53 @@ import React, { useState } from "react";
 import "../FORM/Form.bodul.css";
 
 export default function Form() {
-  const [value, setValue] = useState({ name: "", email: "", password: "" });
-  const handleFormChange = (e) => {
-    const inputName = e.target.name;
-    setValue({ ...value, [inputName]: e.target.value });
+  // const [name, setName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+
+  const [user, setUser] = useState({ name: "", email: "", password: "" });
+  // const { name, email, password } = user;
+
+  // const nameHandleChange = (e) => {
+  //   setUser({ name: e.target.value, email, password });
+  // };
+  // const EmailHandleChange = (e) => {
+  //   setUser({ name, email: e.target.value, password });
+  // };
+  // const passwordHandleChange = (e) => {
+  //   setUser({ name, email, password: e.target.value });
+  // };
+
+  const handleFormChang = (e) => {
+    const fildName = e.target.name;
+
+    // if (fildName === "name") {
+    //   setUser({ name: e.target.value, email, password });
+    // } else if (fildName === "email") {
+    //   setUser({ name, email: e.target.value, password });
+    // } else {
+    //   setUser({ name, email, password: e.target.value });
+    // }
+
+    setUser({ ...user, [fildName]: e.target.value });
   };
 
-  const onSubmitHandle = (e) => {
-    console.log(value);
+  const handleSubmit = (e) => {
+    console.log(user);
     e.preventDefault();
   };
-
   return (
     <div>
-      <h1>Form handle</h1>
+      <h1>From Handle</h1>
+
       <article>
-        <form action="" onSubmit={onSubmitHandle}>
+        <form action="" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name">Name:</label>
             <br />
             <input
-              onChange={handleFormChange}
+              // onChange={nameHandleChange}
+              onChange={handleFormChang}
               type="name"
               name="name"
               id="name"
@@ -32,23 +58,25 @@ export default function Form() {
           </div>
 
           <div>
-            <label htmlFor="email">Eamil:</label>
+            <label htmlFor="email">Email:</label>
             <br />
             <input
-              onChange={handleFormChange}
-              type="Email"
-              name="Email"
-              id="Email"
+              // onChange={EmailHandleChange}
+              onChange={handleFormChang}
+              type="email"
+              name="email"
+              id="email"
               placeholder="Enter Your Email"
               required
             />
           </div>
 
           <div>
-            <label htmlFor="password">password:</label>
+            <label htmlFor="password">Password:</label>
             <br />
             <input
-              onChange={handleFormChange}
+              // onChange={passwordHandleChange}
+              onChange={handleFormChang}
               type="password"
               name="password"
               id="password"
