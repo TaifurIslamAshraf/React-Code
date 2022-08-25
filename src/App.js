@@ -1,13 +1,10 @@
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Home from "./Component/Todo__App/Home";
+import React from "react";
+
+import FAQS from "./Component/Toggle/FAQS"
 
 function App() {
-  return (
-    <div>
-      <Home />
-    </div>
-  );
+  return <div>
+    <FAQS />
+  </div>;
 }
-
 export default App;
