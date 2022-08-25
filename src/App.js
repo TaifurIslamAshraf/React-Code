@@ -1,11 +1,11 @@
 import "./App.css";
-
-import Parent from "./Component/Data__passing/Parent";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Home from "./Component/Todo__App/Home";
 
 function App() {
   return (
     <div>
-      <Parent />
+      <Home />
     </div>
   );
 }
