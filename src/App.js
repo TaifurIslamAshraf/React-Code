@@ -1,10 +1,11 @@
 import React from "react";
-
-import FAQS from "./Component/Toggle/FAQS"
+import UseEffect from "./Component/useEffect/UseEffect";
 
 function App() {
-  return <div>
-    <FAQS />
-  </div>;
+  return (
+    <div>
+      <UseEffect />
+    </div>
+  );
 }
 export default App;
