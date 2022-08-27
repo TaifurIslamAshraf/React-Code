@@ -1,10 +1,10 @@
 import React from "react";
-import UseEffect from "./Component/useEffect/UseEffect";
+import FetchData from "./Component/useEffect/FetchData";
 
 function App() {
   return (
     <div>
-      <UseEffect />
+      <FetchData />
     </div>
   );
 }

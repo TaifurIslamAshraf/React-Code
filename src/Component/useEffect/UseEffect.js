@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 
 const UseEffect = () => {
   const [count, setCount] = useState(0);
-  const [isLoding, setIsLoging] = useState(false);
+  const [Login, setLogin] = useState(false);
 
   useEffect(() => {
-    //useEffect defend on count useState
-    console.log("useEffect");
+    console.log("UseEffect");
   }, [count]);
 
   return (
     <div>
-      {console.log("Rendring")}
+      {console.log("Render")}
       <h1>Count: {count}</h1>
       <button
         onClick={() => {
@@ -20,13 +19,12 @@ const UseEffect = () => {
       >
         Increment
       </button>
-
       <button
         onClick={() => {
-          setIsLoging(!isLoding);
+          setLogin(!Login);
         }}
       >
-        IsLoding
+        isLogin
       </button>
     </div>
   );
