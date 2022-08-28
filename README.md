@@ -1,98 +1,84 @@
-### [13. useEffect Hook]()
+### Data fetching and Error Handle with useEffect
 
-- Example 1
+- Example:
 
-  ```js
-  import React, { useEffect, useState } from "react";
-
-  // Rule: Don’t call Hooks inside loops, conditions, or nested functions
-
-  // The useEffect Hook allows to perform side effects (fetching data, timers, directly updating the DOM) in components.
-
-  // useEffct = componentDidMount + componentDidUpdate + componentWillUnmount
-
-  const UseEffectHook = () => {
-    const [count, setCount] = useState(0);
-
-    // useEffect(() => {
-    //   //Runs on every render
-    // });
-
-    // useEffect(() => {
-    //   //Runs only on the first render
-    // }, []);
-
-    // useEffect(() => {
-    //   //Runs on the first render
-    //   //And any time any dependency value changes
-    // }, [prop, state]);
-
-    //Runs on every render
-    // useEffect(() => {
-    //   console.log("useEffect: " + count);
-    // });
-
-    //Runs only on the first render
-    // useEffect(() => {
-    //   console.log(count);
-    // }, []);
-
-    //Runs on the first render and also when the dependecy value changes
-    useEffect(() => {
-      console.log(count);
-    }, [count]);
-
-    return (
-      <div>
-        <h1>Count: {count}</h1>
-        <button
-          onClick={() => {
-            setCount((count) => count + 1);
-          }}
-        >
-          +
-        </button>
-      </div>
-    );
-  };
-
-  export default UseEffectHook;
+ 
   ```
+ import React, { useState, useEffect } from "react";
 
-  ```js
-  // Another example
-  import React, { useState, useEffect } from "react";
+const FetchData = () => {
+  const [products, setProducts] = useState(null);
+  const [error, setError] = useState(null);
+  const [appHeading, setAppHeading] = useState("");
+  const [isLoding, setIsLoding] = useState(true);
 
-  const UseEffectExample = () => {
-    const [count, setCount] = useState(0);
-    const [loading, setIsLoading] = useState(false);
+  useEffect(() => {
+    fetch("https://fakestoreapi.com/products")
+      .then((res) => {
+        if (!res.ok) {
+          throw Error();
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
+        setProducts(data);
+        setAppHeading(<h1>Our Product List</h1>);
+        setIsLoding(false);
+        setError(null);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoding(false);
+        setProducts(null);
+        setAppHeading("");
+      });
+  }, []);
 
-    useEffect(() => {
-      console.log("useEffect");
-      console.log("isLoading: " + loading);
-    }, [count]);
-
-    return (
-      <div>
-        {console.log("render")}
-        <h2>Count: {count}</h2>
-        <button
-          onClick={() => {
-            setCount((count) => count + 1);
+  const productElement =
+    products &&
+    products.map((product) => {
+      return (
+        <div
+          key={product.id}
+          style={{
+            width: "400px",
+            backgroundColor: "aqua",
+            padding: "20px",
+            margin: "50px auto",
           }}
         >
-          +
-        </button>
-        <button
-          onClick={() => {
-            setIsLoading(!loading);
-          }}
-        >
-          change loading
-        </button>
-      </div>
-    );
-  };
+          <h2>{product.title}</h2>
+          <p>{product.description}</p>
+          <img
+            src={product.image}
+            alt=""
+            height={300}
+            width={300}
+            style={{ marginLeft: "40px" }}
+          />
+          <h3 style={{ textAlign: "center" }}>Price: {product.price}</h3>
+        </div>
+      );
+    });
 
-  export default UseEffectExample;
+  let errorMessage = (
+    <h3 style={{ textAlign: "center" }}>Fetching Is not succsess</h3>
+  );
+  const lodingMessage = (
+    <h1 style={{ textAlign: "center" }}>Product Is Loding....</h1>
+  );
+
+  return (
+    <div>
+      {error && errorMessage}
+      <h1 style={{ textAlign: "center", color: "green" }}>{appHeading}</h1>
+      {productElement}
+      {isLoding && lodingMessage}
+    </div>
+  );
+};
+
+export default FetchData;
+
   ```
