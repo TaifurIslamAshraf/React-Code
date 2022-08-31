@@ -1,10 +1,10 @@
 import React from "react";
-import FetchData from "./Component/useEffect/FetchData";
+import Table from "./Component/Fragment/Table";
 
 function App() {
   return (
     <div>
-      <FetchData />
+      <Table />
     </div>
   );
 }
