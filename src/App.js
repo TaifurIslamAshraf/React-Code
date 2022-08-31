@@ -1,10 +1,10 @@
 import React from "react";
-import Table from "./Component/Fragment/Table";
+import LifeCycle from "./Component/LifeCycle/LifeCycle";
 
 function App() {
   return (
     <div>
-      <Table />
+      <LifeCycle />
     </div>
   );
 }
