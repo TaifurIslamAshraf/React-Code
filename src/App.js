@@ -1,11 +1,9 @@
 import './App.css';
-import ReducerExmaple from './Component/UseReducer/ReducerExmaple';
-
-
+import Component1 from './Component/Prop__Driling/Component1';
 
 function App() {
   return (
-   <ReducerExmaple />
+    <Component1 />
   );
 }
 
