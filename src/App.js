@@ -1,9 +1,9 @@
 import './App.css';
-import Component1 from './Component/Prop__Driling/Component1';
+import Users from './Component/PropTypes/Users';
 
 function App() {
   return (
-    <Component1 />
+    <Users />
   );
 }
 
