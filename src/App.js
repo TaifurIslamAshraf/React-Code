@@ -1,13 +1,12 @@
 import React from "react";
 import "./App.css";
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Blogs from "./Component/Pages/Navbar/Blogs";
-import Contact from "./Component/Pages/Navbar/Contact";
-import Error from "./Component/Pages/Navbar/Error";
-import Home from "./Component/Pages/Navbar/Home";
-import Navbar from "./Component/Pages/Navbar/Navbar";
-import Blog from "./Component/Pages/Navbar/Blog";
+import Blogs from "./Component/Page2/Blogs";
+import Contact from "./Component/Page2/Contact";
+import Error from "./Component/Page2/Error";
+import Home from "./Component/Page2/Home";
+import Navbar from "./Component/Page2/Navbar";
+import Blog from "./Component/Page2/Blog";
 
 const App = () => {
   return (

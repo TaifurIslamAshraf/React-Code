@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { Link } from "react-router-dom";
 
-import { blogData } from "../../data";
+import { blogData } from "./data";
 
 const Blogs = () => {
   const [blogs, setblogs] = useState(blogData);
@@ -25,7 +25,9 @@ const Blogs = () => {
             <article key={id}>
               <h3>{title}</h3>
               <p>{truncateString(body, 200)}</p>
-              <Link to={title}>Learn More...</Link>
+              <Link to={title} state={{ id, title, body }}>
+                Learn More...
+              </Link>
             </article>
           );
         })}
