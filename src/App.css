@@ -56,3 +56,7 @@ section article {
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
+form {
+  margin-top: 20px;
+}

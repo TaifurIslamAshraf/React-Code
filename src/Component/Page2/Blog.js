@@ -1,15 +1,14 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
-// import { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
+// import { useState } from "react";
+// import { useEffect } from "react";
 
+// import { useParams } from "react-router-dom";
 // import { blogData } from "./data";
 
-const Blog = () => {
-  const location = useLocation();
-  console.log(location);
-  // const { title } = useParams();
+import { useLocation } from "react-router-dom";
 
+const Blog = () => {
+  // const { title } = useParams();
   // const [bodyData, setBodyData] = useState("");
 
   // useEffect(() => {
@@ -17,11 +16,13 @@ const Blog = () => {
   //   setBodyData(blog[0].body);
   // }, []);
 
+  const location = useLocation();
+
   return (
     <div>
       <h1>{location.state.title}</h1>
-      <p>{location.state.body.slice(0, 600)}</p>
-      <p>{location.state.body.slice(601, location.state.body.lastIndexOf())}</p>
+      <p>{location.state.body.slice(0, 500)}</p>
+      <p>{location.state.body.slice(501, location.state.body.lastIndexOf())}</p>
     </div>
   );
 };

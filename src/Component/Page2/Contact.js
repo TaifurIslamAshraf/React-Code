@@ -1,5 +1,4 @@
 import React from "react";
-
 import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
@@ -8,16 +7,21 @@ const Contact = () => {
     <div>
       <h1>Contact Page</h1>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate nobis
-        delectus debitis impedit ab excepturi doloremque laudantium, libero
-        consequuntur enim totam ipsa quaerat ullam facilis quisquam obcaecati
-        quibusdam iste sunt atque, eaque tempore. Iusto eligendi debitis labore
-        deleniti quod. Eligendi voluptatum quas ipsa aperiam perspiciatis
-        laudantium quo consequatur quos vitae deleniti. Dignissimos unde ipsum
-        minima ratione eligendi assumenda delectus eos.
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos suscipit
+        reprehenderit facere praesentium ut, molestiae laborum veniam, facilis,
+        possimus ea ipsum rem repellat? Dolore sequi rem doloremque cumque!
+        Eligendi eius nulla repellendus officiis cum ab expedita, error ipsam
+        repudiandae, officia magnam recusandae molestias ducimus beatae, quod
+        distinctio. Consequuntur, quidem? Aperiam?
+      </p>
+      <p>
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum autem
+        voluptates reiciendis doloribus, enim ad explicabo, sapiente veniam
+        labore blanditiis eveniet cumque iure, animi deserunt! Voluptas
+        provident ullam aut beatae.
       </p>
       <button
-        className="btn"
+        className="btn error__h1"
         onClick={() => {
           navigate("/");
         }}
