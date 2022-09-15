@@ -1,15 +1,11 @@
-import React from 'react'
-
-import { useNavigate } from 'react-router-dom'
+import React from "react";
 
 const Error = () => {
-    const Navigate = useNavigate()
   return (
     <div>
-        <h1 className='error__h1'>404 Page Not Found !!</h1>
-        <button className='error__h1 btn' onClick={()=>(Navigate("/"))}>Go To Homepage</button>
+      <h1 className="error__h1">404 Page Not Found</h1>
     </div>
-  )
-}
+  );
+};
 
-export default Error
+export default Error;

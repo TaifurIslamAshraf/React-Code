@@ -1,37 +1,24 @@
-import React, { useState } from "react";
-
-import { Link } from "react-router-dom";
-
-import { blogData } from "./data";
+import React from "react";
 
 const Blogs = () => {
-  const [blogs, setblogs] = useState(blogData);
-
-  const truncateString = (str, num) => {
-    if (str.length > num) {
-      return str.slice(0, num) + "...";
-    } else {
-      return str;
-    }
-  };
-
   return (
     <div>
-      <h1>Blog Page</h1>
-      <section>
-        {blogs.map((blog) => {
-          const { id, title, body } = blog;
-          return (
-            <article key={id}>
-              <h3>{title}</h3>
-              <p>{truncateString(body, 200)}</p>
-              <Link to={title} state={{ id, title, body }}>
-                Learn More...
-              </Link>
-            </article>
-          );
-        })}
-      </section>
+      <h1>Blogs Page</h1>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, eaque
+        quaerat perferendis eos, aliquid omnis et error fugit qui aspernatur
+        nobis animi ut ea a labore odit deleniti vero beatae amet ad maiores
+        voluptatum dolores? Mollitia culpa cumque voluptas sequi. Placeat
+        blanditiis quasi beatae itaque possimus dicta consequuntur inventore
+        quis?
+      </p>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam explicabo
+        ipsam, nulla ratione fugiat officiis sed ullam atque voluptatem illum
+        quas voluptate cum esse hic? Ducimus iure fugiat aperiam quisquam
+        impedit facere ipsa voluptas veniam, voluptates fuga. Aliquam, dolorem
+        consequuntur?
+      </p>
     </div>
   );
 };
