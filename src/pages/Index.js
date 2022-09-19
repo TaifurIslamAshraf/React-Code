@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import Message from "../components/Message";
 
 const Index = () => {
@@ -11,6 +11,14 @@ const Index = () => {
     setCount((prevCount) => {
       return prevCount + 1;
     });
+  }, []);
+
+  const loopNumber = useMemo(() => {
+    let number = 0;
+    for (let i = 0; i < 500000000; i++) {
+      number++;
+    }
+    return number;
   }, []);
 
   return (
@@ -31,6 +39,7 @@ const Index = () => {
       >
         Increment
       </button>
+      <h1> loop with useMemo = {loopNumber}</h1>
       <Message
         numberOfMessage={count}
         onMessageCountNumber={messageCountNumber}
