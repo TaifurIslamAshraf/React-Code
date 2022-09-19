@@ -1,10 +1,11 @@
 import React, { memo } from "react";
 
-const Message = () => {
+const Message = ({ numberOfMessage, onMessageCountNumber }) => {
   console.log("Message Rander");
   return (
     <div>
-      <h2>Message 0 Found</h2>
+      <h2>Message {numberOfMessage} Found</h2>
+      <button onClick={onMessageCountNumber}>Message Incremetn</button>
     </div>
   );
 };
